@@ -1,13 +1,26 @@
-<<<<<<< HEAD
-# Trang Web Bán Hàng Thú Cưng
+# 🐾 Trang Web Bán Hàng Thú Cưng
 
-Dự án Node.js + Express phục vụ cho website bán đồ dùng thú cưng.
+Dự án web bán hàng thú cưng – xây dựng bằng **Node.js + Express**.  
+Mục tiêu: cung cấp một hệ thống web cơ bản cho phép người dùng xem, thêm sản phẩm thú cưng và quản lý đặt hàng.
 
 ---
 
-## Cài đặt
+## 📁 Cấu trúc thư mục
 
 ```bash
-git clone https://github.com/<tên-người-dùng>/<repo>.git
-cd TrangWebBanHangThuCung
-npm install
+TrangWebBanHangThuCung/
+│
+├── src/                    # Source code chính
+│   ├── routes/             # Định nghĩa route (API endpoint)
+│   │   ├── app.js
+│   │   └── index.js
+│   └── ...
+│
+├── test/                   # Nơi để viết các file test
+│
+├── .env                    # Biến môi trường (port, DB,...)
+├── .gitignore              # File cấu hình git
+├── Dockerfile              # Dùng để build docker container (tùy chọn)
+├── package.json            # Thông tin dự án & dependencies
+├── package-lock.json
+└── README.md               # File hướng dẫn này
