@@ -1,0 +1,167 @@
+style
+body {
+    background-color: #ffeef3;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* ---------- HEADER ---------- */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fcd4de;
+    padding: 10px 30px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f4b1c1;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    padding: 8px;
+    color: white;
+    width: 200px;
+}
+
+.search-box input::placeholder {
+    color: white;
+}
+
+.search-box button {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.header-icons span {
+    margin-left: 20px;
+    color: #444;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    background-color: #f4b1c1;
+    text-align: center;
+    padding: 8px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.navbar select {
+    background: #f4b1c1;
+    border: 1px solid white;
+    color: white;
+    padding: 4px;
+}
+
+/* ---------- LOGIN BOX ---------- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.login-box {
+    background: #ffd9e3;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+.login-box h2 {
+    font-weight: normal;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 22px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* ---------- INPUT ---------- */
+.login-box input {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #f191ac;
+    color: white;
+}
+
+.login-box input::placeholder {
+    color: white;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #f59cb4;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.small-text {
+    font-size: 13px;
+    color: #333;
+    margin-top: 15px;
+}
+
+/* ---------- SOCIAL BUTTON ---------- */
+.social-login {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+    background: #e7e7e7;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.social-btn img {
+    width: 18px;
+    margin-right: 8px;
+}
