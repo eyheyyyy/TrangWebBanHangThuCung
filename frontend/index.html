@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetShop</title>
+
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      /* =============== THEME =============== */
+      :root {
+        --pink-25: #fff3f8;
+        --pink-50: #ffe9f2;
+        --pink-100: #ffd3e6;
+        --pink-200: #f7c1d9;
+        --pink-300: #f3a8c2;
+        --pink-600: #e280a6;
+        --text: #3a2b34;
+        --muted: #7a6d77;
+        --ring: #c85a8b33;
+        --white: #fff;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, Segoe UI, Helvetica, Arial, sans-serif;
+        color: var(--text);
+        background: var(--pink-50);
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1200px, 92%);
+        margin-inline: auto;
+      }
+
+      /* =============== TOPBAR =============== */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--pink-100);
+        border-bottom: 1px solid #f3cfe0;
+      }
+      .topbar__inner {
+        display: grid;
+        grid-template-columns: 160px 1fr auto 42px;
+        gap: 16px;
+        align-items: center;
+        padding: 14px 0;
+      }
+      .logo img {
+        height: 52px;
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #efc1d7;
+        border-radius: 999px;
+        box-shadow: var(--shadow);
+        padding: 6px 8px;
+      }
+      .search input {
+        border: none;
+        outline: 0;
+        background: transparent;
+        padding: 10px 12px;
+        flex: 1;
+        font-size: 15px;
+        color: var(--text);
+      }
+      .search button {
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        padding: 8px 10px;
+        font-size: 18px;
+        color: #5a4150;
+        border-radius: 10px;
+      }
+      .search button:focus-visible {
+        outline: 3px solid var(--ring);
+      }
+
+      .actions {
+        display: flex;
+        gap: 18px;
+      }
+      .action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .action i {
+        font-size: 20px;
+      }
+      .hamburger {
+        display: none;
+        border: 0;
+        background: transparent;
+        font-size: 22px;
+      }
+
+      /* =============== NAVBAR + MEGA =============== */
+      .navwrap {
+        background: var(--pink-100);
+        border-block: 1px solid #f1bfd7;
+      }
+      .navbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 10px 0;
+      }
+      .navlink {
+        padding: 12px 22px;
+        border-radius: 12px;
+        background: var(--pink-50);
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        box-shadow: var(--shadow);
+      }
+      .navlink:hover {
+        filter: brightness(0.98);
+      }
+      .navlink.active {
+        outline: 2px solid var(--pink-300);
+      }
+
+      .dropdown.mega {
+        position: relative;
+        margin-left: auto;
+      }
+      .dropdown__btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border: 0;
+        border-radius: 12px;
+        background: var(--pink-50);
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+      }
+      .dropdown__btn:focus-visible {
+        outline: 3px solid var(--ring);
+      }
+
+      .mega__panel {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        display: none;
+        background: #e9b8cd;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        width: 720px;
+      }
+      .mega--open .mega__panel {
+        display: flex;
+      }
+      @media (hover: hover) {
+        #megaWrap:hover .mega__panel {
+          display: flex;
+        }
+      }
+
+      .mega__left {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        width: 260px;
+        background: #efc1d7;
+      }
+      .mega__item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .mega__item:hover {
+        background: var(--pink-25);
+      }
+      .mega__icon {
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+      }
+      .mega__chev {
+        margin-left: auto;
+        opacity: 0.7;
+      }
+
+      .mega__right {
+        flex: 1;
+        padding: 10px;
+        min-height: 260px;
+      }
+      .submenu {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        display: none;
+      }
+      .submenu.is-active {
+        display: block;
+        animation: fade 0.15s ease-out;
+      }
+      .submenu li a {
+        display: block;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: var(--text);
+        text-decoration: none;
+      }
+      .submenu li a:hover {
+        background: var(--pink-25);
+        text-decoration: underline;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0.6;
+          transform: translateY(2px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* =============== BIG BANNERS =============== */
+      .hero {
+        padding: 22px 0;
+      }
+      .banner {
+        width: min(1200px, 92%);
+        margin: 18px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 5px solid #f4c6d6;
+        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.12);
+      }
+      .banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* optional banner 2 (xếp dưới) */
+      .banner--secondary {
+        border-color: #f1b8cf;
+      }
+
+      /* =============== FOOTER =============== */
+      .footer {
+        margin-top: 40px;
+        background: var(--pink-100);
+        border-top: 1px solid #f1bfd7;
+      }
+      .footer__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .footer__links {
+        display: flex;
+        gap: 16px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .footer__links a {
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .footer__links a:hover {
+        text-decoration: underline;
+      }
+
+      /* =============== RESPONSIVE =============== */
+      #mainNav {
+        display: flex;
+      }
+      @media (max-width: 960px) {
+        .topbar__inner {
+          grid-template-columns: 120px 1fr auto 42px;
+        }
+        .actions {
+          display: none;
+        }
+        .hamburger {
+          display: block;
+        }
+        .mega__panel {
+          position: static;
+          width: 100%;
+          margin-top: 10px;
+        }
+        #mainNav {
+          display: none;
+        }
+        #mainNav.nav--open {
+          display: flex;
+        }
+      }
+      @media (max-width: 560px) {
+        .topbar__inner {
+          grid-template-columns: 1fr 42px;
+        }
+        .logo {
+          display: none;
+        }
+        .search {
+          grid-column: 1/-1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- =============== TOPBAR =============== -->
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="logo" href="#"
+          ><img src="images/logo.png" alt="PetShop logo"
+        /></a>
+
+        <form class="search" role="search">
+          <input
+            type="text"
+            placeholder="tìm kiếm trong shop"
+            aria-label="Tìm kiếm"
+          />
+          <button type="submit" aria-label="Tìm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
+        <nav class="actions" aria-label="Tài khoản & giỏ hàng">
+          <a class="action" href="#"
+            ><i class="fa-solid fa-bag-shopping"></i><span>giỏ hàng</span></a
+          >
+          <a class="action" href="#"
+            ><i class="fa-regular fa-user"></i><span>Đăng nhập</span></a
+          >
+        </nav>
+
+        <button class="hamburger" id="btnMenu" aria-label="Mở menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- =============== NAVBAR + MEGA MENU =============== -->
+    <div class="navwrap">
+      <div class="container navbar" id="mainNav">
+        <a class="navlink active" href="#">Trang chủ</a>
+        <a class="navlink" href="#">giới thiệu</a>
+        <a class="navlink" href="#">sản phẩm</a>
+
+        <div class="dropdown mega" id="megaWrap">
+          <button class="dropdown__btn" id="btnDropdown">
+            danh mục <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <div
+            class="mega__panel"
+            id="megaPanel"
+            role="menu"
+            aria-hidden="true"
+          >
+            <!-- Left column -->
+            <ul class="mega__left">
+              <li class="mega__item" data-sub="pate">
+                <span class="mega__icon">
+                  <img
+                    src="images/56e1dc17883812d58e2643929b3b6a663035d659.png"
+                    alt="Pate"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Pate</span>
+                <i class="fa-solid fa-angle-right mega__chev"></i>
+              </li>
+
+              <li class="mega__item" data-sub="thucan">
+                <span class="mega__icon">
+                  <img
+                    src="images/f1cc7ef792f16e0c6532e8266e68c231bc6457b3.png"
+                    alt="Thức ăn"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Thức Ăn</span>
+                <i class="fa-solid fa-angle-right mega__chev"></i>
+              </li>
+
+              <li class="mega__item" data-sub="cat">
+                <span class="mega__icon">
+                  <img
+                    src="images/dcf2350873ef3765d7280c0b211ce0926fbb56df.png"
+                    alt="Cát vệ sinh"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Cát Vệ Sinh</span>
+                <i class="fa-solid fa-angle-right mega__chev"></i>
+              </li>
+
+              <li class="mega__item" data-sub="dochoi">
+                <span class="mega__icon">
+                  <img
+                    src="images/746e02bad4101c9c4ea5e049b638f1ad99cce406.png"
+                    alt="Đồ chơi"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Đồ Chơi</span>
+                <i class="fa-solid fa-angle-right mega__chev"></i>
+              </li>
+
+              <li class="mega__item" data-sub="nha">
+                <span class="mega__icon">
+                  <img
+                    src="images/65c8b02bec453d92c3bc58a0c0c26e52797e50a5.png"
+                    alt="Nhà"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Nhà</span>
+                <i class="fa-solid fa-angle-right mega__chev"></i>
+              </li>
+            </ul>
+
+            <!-- Right column -->
+            <div class="mega__right">
+              <ul class="submenu" data-menu="pate">
+                <li><a href="#">Pate Royal Canin</a></li>
+                <li><a href="#">Pate Pedigree</a></li>
+                <li><a href="#">Pate Smartheart</a></li>
+                <li><a href="#">Pate Moochi</a></li>
+                <li><a href="#">Pate King Pet</a></li>
+                <li><a href="#">Pate Monge</a></li>
+              </ul>
+
+              <ul class="submenu" data-menu="thucan">
+                <li><a href="#">Gel Dinh Dưỡng</a></li>
+                <li><a href="#">Xương Ăn Vặt</a></li>
+                <li><a href="#">Sữa Bột</a></li>
+                <li><a href="#">Hạt</a></li>
+                <li><a href="#">Bánh Thưởng</a></li>
+                <li><a href="#">Thịt Cừu Que</a></li>
+              </ul>
+
+              <ul class="submenu" data-menu="cat">
+                <li><a href="#">SoyPaw</a></li>
+                <li><a href="#">Cat’s Best An To</a></li>
+                <li><a href="#">Kún Miu</a></li>
+                <li><a href="#">Litter</a></li>
+                <li><a href="#">TFOR</a></li>
+                <li><a href="#">Cat MIN</a></li>
+              </ul>
+
+              <ul class="submenu" data-menu="dochoi">
+                <li><a href="#">Chuồng Dạy Chó Mèo</a></li>
+                <li><a href="#">Đĩa Ném</a></li>
+                <li><a href="#">Còi Huấn Luyện</a></li>
+                <li><a href="#">Đồ Chơi Thức Ăn</a></li>
+                <li><a href="#">Xương Da</a></li>
+                <li><a href="#">Đánh Răng Cao Su</a></li>
+              </ul>
+
+              <ul class="submenu" data-menu="nha">
+                <li><a href="#">Túi Vận Chuyển</a></li>
+                <li><a href="#">Ba Lô Thú Cưng</a></li>
+                <li><a href="#">Chuồng chó sơn tĩnh điện</a></li>
+                <li><a href="#">Nhà Chống Hôi</a></li>
+                <li><a href="#">Rào Quây Chó</a></li>
+                <li><a href="#">Tấm Lót Sàn</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /mega -->
+      </div>
+    </div>
+
+    <!-- =============== BIG CENTER BANNERS (no products section) =============== -->
+    <main>
+      <section class="hero">
+        <div class="banner">
+          <img
+            src="images/7c6c0ac94b0505bc2ea37d44173223ae2013fce9.png"
+            alt="Ưu đãi lớn cho khách hàng mới"
+          />
+        
+      </section>
+    </main>
+
+    <!-- =============== FOOTER =============== -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>© 2025 PetShop. All rights reserved.</p>
+        <ul class="footer__links">
+          <li><a href="#">Chính sách</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <script>
+      // ===== Helpers =====
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+      const outsideClick = (targets, handler) => {
+        const onDocClick = (e) => {
+          const inside = targets.some((t) => t && t.contains(e.target));
+          if (!inside) handler();
+        };
+        document.addEventListener("click", onDocClick, { passive: true });
+        return () => document.removeEventListener("click", onDocClick);
+      };
+
+      // ===== Mobile hamburger =====
+      (() => {
+        const btn = $("#btnMenu");
+        const nav = $("#mainNav");
+        if (!btn || !nav) return;
+
+        const sync = () => {
+          if (window.matchMedia("(min-width: 961px)").matches) {
+            nav.classList.remove("nav--open");
+            btn.setAttribute("aria-expanded", "false");
+          }
+        };
+        btn.addEventListener("click", () => {
+          nav.classList.toggle("nav--open");
+          btn.setAttribute(
+            "aria-expanded",
+            nav.classList.contains("nav--open") ? "true" : "false"
+          );
+        });
+        window.addEventListener("resize", sync, { passive: true });
+        sync();
+      })();
+
+      // ===== Search (demo) =====
+      (() => {
+        const form = document.querySelector(".search");
+        if (!form) return;
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const q = form.querySelector("input")?.value?.trim();
+          if (q) alert("Tìm: " + q); // thay bằng xử lý thật của bạn
+        });
+      })();
+
+      // ===== Mega menu 2 tầng =====
+      (() => {
+        const wrap = $("#megaWrap");
+        const panel = $("#megaPanel");
+        const trigger = $("#btnDropdown");
+        const leftItems = $$(".mega__item", panel);
+        const subMenus = $$(".submenu", panel);
+        if (!wrap || !panel || !trigger || !leftItems.length) return;
+
+        const activate = (key) => {
+          subMenus.forEach((ul) =>
+            ul.classList.toggle("is-active", ul.dataset.menu === key)
+          );
+        };
+
+        let cleanup = null;
+        const open = () => {
+          wrap.classList.add("mega--open");
+          trigger.setAttribute("aria-expanded", "true");
+          activate(leftItems[0].dataset.sub);
+          cleanup = outsideClick([wrap], close);
+        };
+        const close = () => {
+          wrap.classList.remove("mega--open");
+          trigger.setAttribute("aria-expanded", "false");
+          cleanup?.();
+          cleanup = null;
+        };
+
+        trigger.addEventListener("click", (e) => {
+          e.stopPropagation();
+          wrap.classList.contains("mega--open") ? close() : open();
+        });
+        leftItems.forEach((li) => {
+          li.addEventListener("mouseenter", () => activate(li.dataset.sub));
+          li.addEventListener("click", () => activate(li.dataset.sub)); // mobile
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
+      })();
+    </script>
+  </body>
+</html>
